@@ -26,7 +26,7 @@ void ConsoleManager::setcolor(unsigned char color)
 void ConsoleManager::DisplayLength(const point Bounds, const int Value)
 {
     setcolor(7);
-    gotoxy(0, Bounds.y);
+    gotoxy(0, Bounds.y + 2);
     _cprintf("Length: %d", Value);
 }
 

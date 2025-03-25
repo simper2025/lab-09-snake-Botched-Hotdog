@@ -15,5 +15,5 @@ void Mouse::Move()
 	Location.x = std::rand() % Bounds.x;
 	Location.y = std::rand() % Bounds.y;
 
-	ConsoleManager::txtPlot(Location, 68); // Draw Red Square
+	ConsoleManager::txtPlot(Location + point{ 1,1 }, 68); // Draw Red Square
 }

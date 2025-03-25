@@ -8,6 +8,10 @@ struct point
 	{
 		return point{ this->x + other.x, this->y + other.y };
 	}
+	point operator*(const int& scalar)
+	{
+		return point{ this->x * scalar, this->y * scalar };
+	}
 	bool operator==(const point& other)
 	{
 		return this->x == other.x && this->y == other.y;

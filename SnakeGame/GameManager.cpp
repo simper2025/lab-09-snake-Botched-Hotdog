@@ -19,6 +19,35 @@ GameManager::GameManager(const float refreshrate, const point BoundsSize)
     SnakeObj = Snake(170, 34, { BoundsSize.x / 2, BoundsSize.y / 2 });
 }
 
+void GameManager::DrawBoard()
+{
+    for (int i = 0; i < Bounds.x + 2; i++)
+    {
+        if (i == 0 || i == Bounds.x + 1)
+        {
+            for (int ii = 0; ii < Bounds.y + 2; ii++)
+            {
+                ConsoleManager::txtPlot({ i, ii }, 82);
+            }
+        }
+        else
+        {
+            for (int ii = 0; ii < Bounds.y + 2; ii++)
+            {
+                if (ii == 0 || ii == Bounds.y + 1)
+                {
+                    ConsoleManager::txtPlot({ i, ii }, 82);
+                }
+                //else
+                //{
+                //    EmptyPeice.Location = { i, ii };
+                //    ConsoleManager::DrawAtPoint(EmptyPeice);
+                //}
+            }
+        }
+    }
+}
+
 void GameManager::RunGame()
 {
     chrono::time_point<chrono::system_clock> runTime;
@@ -26,6 +55,7 @@ void GameManager::RunGame()
     runTime = std::chrono::system_clock::now();
 
     Sleep(300);
+    DrawBoard();
 
     while (bContinueGame)
     {

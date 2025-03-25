@@ -19,6 +19,7 @@ private:
 
 public:
 	GameManager(const float refreshrate, const point BoundsSize);
+	void DrawBoard();
 
 	void RunGame();
 	_inline bool ShouldContinueGame() const { return bContinueGame; };

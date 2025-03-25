@@ -9,6 +9,8 @@ private:
 	std::vector<point> Body;
 	unsigned char BodyColor;
 	unsigned char HeadColor;
+	point LastDirection;
+
 public:
 	Snake() = default;
 	Snake(const unsigned char BodyCol, const unsigned char HeadCol, const point StartLoc);
