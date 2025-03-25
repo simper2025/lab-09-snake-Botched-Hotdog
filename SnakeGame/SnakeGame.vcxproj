@@ -127,7 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="KeyboardManager.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Snake.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConsoleManager.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="KeyboardManager.h" />
+    <ClInclude Include="KeyCommands.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
