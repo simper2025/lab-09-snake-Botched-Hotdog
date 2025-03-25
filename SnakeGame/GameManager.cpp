@@ -12,10 +12,11 @@ GameManager::GameManager(const float refreshrate, const point BoundsSize)
 {
     bContinueGame = true;
     RefreshRate = refreshrate;
+    Bounds = BoundsSize;
     LastKeyPress = KeyCommand::Right;
 
     MouseObj = Mouse(BoundsSize);
-    SnakeObj = Snake(179, 34, { BoundsSize.x / 2, BoundsSize.y / 2 });
+    SnakeObj = Snake(170, 34, { BoundsSize.x / 2, BoundsSize.y / 2 });
 }
 
 void GameManager::RunGame()
@@ -23,34 +24,45 @@ void GameManager::RunGame()
     chrono::time_point<chrono::system_clock> runTime;
     chrono::time_point<chrono::system_clock> currentTime;
     runTime = std::chrono::system_clock::now();
+
     Sleep(300);
 
-
-    KeyCommand CurrentKeyInput = KeyboardManager::GetKeyPress();
-    
-    switch (CurrentKeyInput)
+    while (bContinueGame)
     {
-    case KeyCommand::Quit:
-        bContinueGame = false; 
-        return;
+        KeyCommand CurrentKeyInput = KeyboardManager::GetKeyPress();
 
-    case KeyCommand::None: break;
+        switch (CurrentKeyInput)
+        {
+        case KeyCommand::Quit:
+            bContinueGame = false;
+            break;
 
-    default: LastKeyPress = CurrentKeyInput;
+        case KeyCommand::None: break;
+
+        default: LastKeyPress = CurrentKeyInput;
+        }
+
+        currentTime = chrono::system_clock::now();
+
+        double elapsedTime = chrono::duration_cast<chrono::milliseconds>(currentTime - runTime).count();
+        if (elapsedTime > 0.3 * 1000) {
+            runTime = chrono::system_clock::now();
+
+            bool AteMouse = SnakeObj.Move(MouseObj.GetPosition(), LastKeyPress);
+            if (AteMouse)
+            {
+                MouseObj.Move();
+            }
+
+            if (SnakeObj.DidSnakeCollide(Bounds))
+            {
+                bContinueGame = false;
+            }
+
+            ConsoleManager::DisplayLength(Bounds, SnakeObj.GetSnakeSize());
+        }
+
+
+        Sleep(10);
     }
-
-    currentTime = chrono::system_clock::now();
-
-    double elapsedTime = chrono::duration_cast<chrono::milliseconds>(currentTime - runTime).count();
-    if (elapsedTime > 0.3 * 1000) {
-        runTime = chrono::system_clock::now();
-
-        //Most of your game logic goes here.
-
-        SnakeObj.Move(LastKeyPress);
-
-        ConsoleManager::DisplayLength(SnakeObj.GetSnakeSize());
-    }
-
-    Sleep(10);
 }

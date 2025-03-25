@@ -23,7 +23,10 @@ void ConsoleManager::setcolor(unsigned char color)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
-void ConsoleManager::DisplayLength(int Value)
+void ConsoleManager::DisplayLength(const point Bounds, const int Value)
 {
+    setcolor(7);
+    gotoxy(0, Bounds.y);
     _cprintf("Length: %d", Value);
 }
+

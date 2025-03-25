@@ -8,13 +8,17 @@ Snake::Snake(const unsigned char BodyCol, const unsigned char HeadCol, const poi
 	Body.push_back(StartLoc);
 }
 
-void Snake::Move(const KeyCommand Direction)
+bool Snake::Move(const point MousePos, const KeyCommand Direction)
 {
 	int ArraySize = Body.size();
+	point OldPos;
+	bool bAteMouse = false;
 
 	for (int i = 0; i < ArraySize; i++)
 	{
-		if (i == ArraySize - 1) // Head
+		point LastPos = Body[i];
+		
+		if (i == 0) // Head
 		{
 			point NewDirection;
 			switch (Direction)
@@ -34,14 +38,55 @@ void Snake::Move(const KeyCommand Direction)
 			default:
 				break;
 			}
-			Body[i] + NewDirection;
+			Body[i] = Body[i] + NewDirection;
+			if (Body[i] == MousePos) bAteMouse = true;
 
 			ConsoleManager::txtPlot(Body[i], HeadColor);
 		}
 		else // Body
-		{
-			Body[i] = Body[i + 1];
+		{		
+			Body[i] = OldPos;
 			ConsoleManager::txtPlot(Body[i], BodyColor);
-		}	
+		}
+
+		if (i == ArraySize - 1) // End of Body
+		{
+			if (bAteMouse)
+			{
+				point TailPiece = LastPos;
+				Body.push_back(TailPiece);
+			}
+			else
+			{
+				ConsoleManager::txtPlot(LastPos, 7);
+			}
+		}
+
+		OldPos = LastPos;
 	}
+
+	return bAteMouse;
+}
+
+bool Snake::DidSnakeCollide(const point Bounds)
+{
+	point Head = Body[0];
+	
+	bool OutOfBounds_X = Head.x < 0 || Head.x > Bounds.x;
+	bool OutOfBounds_Y = Head.y < 0 || Head.x > Bounds.y;
+	bool HitItself = false;
+
+
+	// start at 1 to skip head
+	for (int i = 1; i < Body.size(); i++)
+	{
+		if (Head == Body[i])
+		{
+			HitItself = true;
+			break;
+		}
+
+	}
+
+	return OutOfBounds_X || OutOfBounds_Y || HitItself;
 }

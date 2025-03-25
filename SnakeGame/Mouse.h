@@ -9,6 +9,8 @@ private:
 public:
 	Mouse() = default;
 	Mouse(const point bounds);
+
+	const point GetPosition() const { return Location; };
 	void Move();
 };
 

@@ -8,6 +8,10 @@ struct point
 	{
 		return point{ this->x + other.x, this->y + other.y };
 	}
+	bool operator==(const point& other)
+	{
+		return this->x == other.x && this->y == other.y;
+	}
 
 	point() : x(0), y(0) {};
 	point(int X, int Y) : x(X), y(Y) {};
