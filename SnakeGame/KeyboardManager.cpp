@@ -18,9 +18,13 @@ const KeyCommand KeyboardManager::GetKeyPress()
         int keypress = _getch();
         switch (keypress)
         {
+        case key_A:
         case key_LEFT: return KeyCommand::Left;
+        case key_D:
         case key_RIGHT: return KeyCommand::Right;
+        case key_W:
         case key_UP: return KeyCommand::Up;
+        case key_S:
         case key_DOWN: return KeyCommand::Down;
         case key_ESCAPE: return KeyCommand::Quit;
         default: return KeyCommand::None;

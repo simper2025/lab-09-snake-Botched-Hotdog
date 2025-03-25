@@ -83,6 +83,7 @@ void GameManager::RunGame()
             {
                 MouseObj.Move();
             }
+            
 
             if (SnakeObj.DidSnakeCollide(Bounds))
             {
