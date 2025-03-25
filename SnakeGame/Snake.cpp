@@ -79,8 +79,8 @@ bool Snake::DidSnakeCollide(const point Bounds)
 {
 	point Head = Body[0];
 	
-	bool OutOfBounds_X = Head.x < 0 || Head.x > Bounds.x;
-	bool OutOfBounds_Y = Head.y < 0 || Head.y > Bounds.y;
+	bool OutOfBounds_X = Head.x < 0 || Head.x >= Bounds.x;
+	bool OutOfBounds_Y = Head.y < 0 || Head.y >= Bounds.y;
 	bool HitItself = false;
 
 
